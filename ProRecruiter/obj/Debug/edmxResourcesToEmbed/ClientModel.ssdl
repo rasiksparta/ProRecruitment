@@ -9,7 +9,34 @@
     <Property Name="address" Type="varchar(max)" Nullable="false" />
     <Property Name="email" Type="varchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="job_Id" />
+    </Key>
+    <Property Name="job_Id" Type="bigint" Nullable="false" />
+    <Property Name="job_title" Type="varchar(max)" Nullable="false" />
+    <Property Name="job_discription" Type="varchar(max)" Nullable="false" />
+    <Property Name="salary" Type="float" Nullable="false" />
+    <Property Name="company_id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Jobs__company_id__49C3F6B7">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ProRecruiterModelStoreContainer">
     <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Jobs__company_id__49C3F6B7" Association="Self.FK__Jobs__company_id__49C3F6B7">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>
